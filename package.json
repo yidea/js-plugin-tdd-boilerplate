@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "description": "js-plugin-tdd-boilerplate",
-  "keywords": [
-  ],
+  "keywords": [],
   "repository": {
     "type": "git",
     "url": "https://github.com/yidea/js-plugin-tdd-boilerplate.git"
@@ -18,7 +17,9 @@
     "test": "./node_modules/.bin/testem"
   },
   "dependencies": {
-    "jquery": "^2.1.1"
+    "backbone": "^1.1.2",
+    "jquery": "^2.1.1",
+    "underscore": "^1.7.0"
   },
   "devDependencies": {
     "browserify": "^4.2.0",

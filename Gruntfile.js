@@ -85,7 +85,7 @@ module.exports = function(grunt) {
 //  grunt.loadNpmTasks("grunt-browser-sync");
 
   // custom tasks
-  grunt.registerTask("dev", ["watch", "browserSync"]);
+  grunt.registerTask("dev", ["watch"]);
   grunt.registerTask("build", ["jshint:build", "jscs", "browserify:client", "uglify"]);
 
 //  var browserify = require("browserify"),
