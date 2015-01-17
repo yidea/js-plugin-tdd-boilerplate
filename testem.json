@@ -1,0 +1,13 @@
+{
+  "test_page": "tests/webui.mustache",
+  "framework": "mocha+chai",
+  "serve_files": ["browserified.js"],
+  "src_files": [
+    "node_modules/sinon/pkg/sinon-1.7.3.js",
+    "libs/*.js",
+    "tests/spec/*.spec.js"
+  ],
+  "before_tests": "browserify tests/spec/plugin.spec.js > browserified.js",
+  "on_exit": "rm browserified.js",
+  "launch_in_dev": ["chrome"]
+}
