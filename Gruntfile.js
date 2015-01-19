@@ -89,11 +89,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-jscs");
   grunt.loadNpmTasks("grunt-githooks");
 
-  //TODO:
-//  grunt.loadNpmTasks("grunt-browser-sync");
+// TODO:  grunt.loadNpmTasks("grunt-browser-sync");
 
   // custom tasks: disalbe uglify for now
   grunt.registerTask("dev", ["watch"]);
   grunt.registerTask("build", ["jshint:build", "jscs", "browserify"]);
-
 };
