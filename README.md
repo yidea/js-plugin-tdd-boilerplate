@@ -1,10 +1,11 @@
 JS Plugin TDD Boilerplate
 ====================
 
-JS Plugin TDD Boilerplate is a quick starter for build your frontend plugin with TDD unit tests suit. e.g. jquery/underscore/backbone
+JS Plugin TDD Boilerplate is a quick starter for build your frontend plugin with TDD unit tests suit. e.g. jquery/underscore/backbone plugins 
 
 FE tooling spec: grunt+mocha+chai+sinon+browserify+testem
 
+Screenshot 
 ![unit test screenshot](screenshot.jpg)
 
 ## Setup
@@ -22,7 +23,7 @@ _PS. tests might fail in phantomjs if test code has fn.bind, becuase it doesn't 
 
 ## Todo: 
 
-- Webpack?
+- Webpack? UMD style 
 - browserSync
 - code coverage
 - jscs check, git precommit hook

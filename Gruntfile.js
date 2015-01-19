@@ -51,7 +51,7 @@ module.exports = function(grunt) {
           external: ["jquery", "jquery.cookie","underscore", "backbone"]
         },
         src: [libsRoot + pluginName],
-        dest: distRoot + pluginName
+        dest: distRoot + pluginName.replace(".js", ".unbundle.js")
       },
       bundle: {
         options: {
