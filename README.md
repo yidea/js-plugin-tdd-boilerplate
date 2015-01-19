@@ -5,6 +5,8 @@ JS Plugin TDD Boilerplate is a quick starter for build your frontend plugin with
 
 FE tooling spec: grunt+mocha+chai+sinon+browserify+testem
 
+![unit test screenshot](https://www.dropbox.com/s/tfhp9uchxlro9vq/Screenshot%202015-01-19%2011.30.28.jpg)
+
 ## Setup
 For development, clone the repo and run `npm install` to install npm dependecy.
 - To code plugin: `grunt dev` to live watch your code and `grunt build` to compile your code for client usage(jshint, jscs, browserfy, uglify)  
