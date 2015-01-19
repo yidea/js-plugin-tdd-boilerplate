@@ -45,12 +45,20 @@ module.exports = function(grunt) {
     },
 
     browserify: {
-      client: {
+      external: {
+        options: {
+          transform: ["literalify"],
+          external: ["jquery", "jquery.cookie","underscore", "backbone"]
+        },
+        src: [libsRoot + pluginName],
+        dest: distRoot + pluginName
+      },
+      bundle: {
         options: {
           transform: ["literalify"]
         },
         src: [libsRoot + pluginName],
-        dest: distRoot + pluginName
+        dest: distRoot + pluginName.replace(".js", ".bundle.js")
       }
     },
 
@@ -68,7 +76,7 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: [libsRoot + pluginName],
-        tasks: ["jshint:build", "browserify:client"]
+        tasks: ["jshint:build", "browserify"]
       }
     }
   });
@@ -84,21 +92,8 @@ module.exports = function(grunt) {
   //TODO:
 //  grunt.loadNpmTasks("grunt-browser-sync");
 
-  // custom tasks
+  // custom tasks: disalbe uglify for now
   grunt.registerTask("dev", ["watch"]);
-  grunt.registerTask("build", ["jshint:build", "jscs", "browserify:client", "uglify"]);
+  grunt.registerTask("build", ["jshint:build", "jscs", "browserify"]);
 
-//  var browserify = require("browserify"),
-//    literalify = require("literalify"),
-//    fs = require("fs");
-//  grunt.registerTask("literalify", "covert browserify to browser", function () {
-//    grunt.log.writeln("Processing literalify task...");
-//    var b = browserify();
-//    // map module names with global objects
-//    b.transform(literalify.configure({
-//      "jquery": "window.$"
-//    }));
-//    b.add("lib/jquery.powerpack.js");
-//    b.bundle().pipe(fs.createWriteStream("dist/bundle.js"));
-//  });
 };

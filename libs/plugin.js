@@ -1,63 +1,63 @@
-var jQuery = require("jquery");
-  //_ = require("underscore"),
-  //Backbone = require("backbone");
+/* Backbone.App
+*
+*/
+var $ = require("jquery"),
+  _ = require("underscore"),
+  Backbone = require("backbone");
+require("jquery.cookie");
 
-(function($) {
-  var $window = $(window);
-  $.fn.isInViewport = function (options) {
-    options = options || {};
-    options.threshold = options.threshold || 0;
-    options.fully = options.fully || false;
-    var el = this;
-    if (el instanceof $) { el = el[0]; }
-    // getBoundingClientRect return info relative to window (exclude scroll offset)
-    var rect = el.getBoundingClientRect(),
-      viewportHeight = $window.height(),
-      viewportWidth = $window.width();
+//cookie setup w json parse/stringify
+//$.cookie.json = true;
 
-    if (options.fully) {
-      // test if the block is fully in viewport
-      return (rect.top >= 0 && rect.bottom <= viewportHeight && rect.left >= 0 &&
-      rect.right <= viewportWidth);
-    } else {
-      // partial in viewport, threshold take effect here
-      return rect.top < (viewportHeight + options.threshold) &&
-        rect.bottom > (0 - options.threshold) &&
-        rect.left < (viewportWidth + options.threshold) &&
-        rect.right > (0 - options.threshold);
+var AppState = Backbone.Model.extend({
+  initialize: function (options) {
+    this.storeType = options.storeType || "cookie";
+    this.storeKey = options.storeKey || "appState";
+    this.storeExpire = options.storeExpire || 30; //30 days
+
+    _.bindAll(this, "_getState");
+    this.on("change", this.save, this);
+    this.fetch();
+  },
+
+  fetch: function () {
+    var objState;
+    if ("cookie" === this.storeType) {
+      objState = this._getState();
+      if (objState) {
+        this.set(objState);
+      }
     }
-  };
+    return this;
+  },
 
-  $.fn.belowTheFold = function (options) {
-    options = options || {};
-    options.threshold = options.threshold || 0;
-    var rect = this.get(0).getBoundingClientRect(),
-      viewportHeight = $window.height();
-    return rect.top >= (viewportHeight + options.threshold);
-  };
+  save: function () {
+    //omit config
+    var state = _.omit(this.attributes, "storeType", "storeKey", "storeExpire");
+    if ("cookie" === this.storeType) {
+      $.cookie(this.storeKey, JSON.stringify(state), { expires: this.storeExpire});
+    }
+  },
 
-  $.fn.aboveTheTop = function (options) {
-    options = options || {};
-    options.threshold = options.threshold || 0;
-    var rect = this.get(0).getBoundingClientRect();
-    return rect.bottom <= (0 - options.threshold);
-  };
+  destroy: function () {
+    if ("cookie" === this.storeType) {
+      $.removeCookie(this.storeKey);
+    }
+  },
 
-  $.fn.rightOfScreen = function (options) {
-    options = options || {};
-    options.threshold = options.threshold || 0;
-    var rect = this.get(0).getBoundingClientRect(),
-      viewportWidth = $window.width();
-    return rect.left >= (viewportWidth + options.threshold);
-  };
+  _getState: function () {
+    var strState,
+      objState;
+    if ("cookie" === this.storeType) {
+      strState = $.cookie(this.storeKey);
+      try {
+        objState = JSON.parse(strState);
+      } catch (err) {
+        objState = null;
+      }
+      return objState;
+    }
+  }
+});
 
-  $.fn.leftOfScreen = function (options) {
-    options = options || {};
-    options.threshold = options.threshold || 0;
-    var rect = this.get(0).getBoundingClientRect();
-    return rect.right <= (0 - options.threshold);
-  };
-
-}(jQuery));
-
-module.exports = jQuery;
+module.exports = AppState;

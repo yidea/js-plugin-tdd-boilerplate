@@ -13,6 +13,7 @@ For development, clone the repo and run `npm install` to install npm dependecy.
 _PS. tests might fail in phantomjs if test code has fn.bind, becuase it doesn't support Funciton.prototype.bind since it's build with QTwebkit. you can either polyfill the bind or just use a real browser (the .bind is used in the spec to validate params)_
 
 ## Todo: 
+- Webpack?
 - browserSync
 - code coverage
 - jscs check, git precommit hook
